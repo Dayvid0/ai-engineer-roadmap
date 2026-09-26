@@ -35,7 +35,7 @@ def chunk_text(text, max_chars=350):
                 chunks.append(current_chunk.strip())
     return chunks
 
-document_text = load_document("ai_engineering_notes.txt")
+document_text = load_document("my_roadmap_notes.txt")
 chunks = chunk_text(document_text)
 
 print(f"Loaded document, split into {len(chunks)} chunks.\n")
@@ -57,7 +57,7 @@ while True:
         break
 
     question_embedding = embed_model.encode(question).tolist()
-    results = collection.query(query_embeddings=[question_embedding], n_results=2)
+    results = collection.query(query_embeddings=[question_embedding], n_results=4)
     retrieved = results["documents"][0]
 
     context_text = "\n".join(retrieved)

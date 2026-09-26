@@ -1,0 +1,42 @@
+
+AI ENGINEER ROADMAP AND NOTES
+
+The AI Engineer roadmap runs from August 24 to December 31, 2026. It is structured around five pillars: LLMs and RAG, Agents and Orchestration, Ops and Evaluation and Safety, and ML Foundations, followed by a capstone project.
+
+Week 0, from August 24 to 30, covers setup and foundations. The goal is to get the environment ready, refresh Python and Git, and get comfortable calling an LLM API.
+
+September covers LLMs and RAG. This includes LLM APIs, prompt engineering, structured outputs, and tokens and context windows. The build for this month is a production-style RAG application using real-world data.
+
+A token is the actual unit an LLM reads and generates, not a word. It is roughly three quarters of an English word, or about four characters. A tokenizer breaks text into these chunks based on statistically common patterns.
+
+A context window is the total token budget a model can handle in one call, combining input and output. Every model has a hard ceiling, and exceeding it causes older content to be dropped or the call to fail.
+
+RAG stands for Retrieval-Augmented Generation. It solves the problem of limited context windows by retrieving only relevant chunks of information at the time of the question, instead of sending an entire document library every time.
+
+An embedding is a list of numbers, called a vector, that represents the meaning of a piece of text. Similar meanings produce similar vectors, which allows retrieval by meaning rather than by exact keyword matching.
+
+Chunking is the process of splitting documents into smaller pieces before embedding them. Common strategies include fixed-size chunking, sentence-based chunking, semantic chunking, and sentence-window chunking. Overlap between chunks helps prevent ideas from being awkwardly split across chunk boundaries.
+
+A vector database stores embeddings alongside the original text and optional metadata, and is optimized to quickly find the most similar vectors to a given query vector.
+
+Retrieval quality can be improved through re-ranking, where a broad first pass retrieves many candidates and a more precise model re-ranks them, and through hybrid search, which combines keyword search with semantic vector search.
+
+RAG evaluation involves checking both retrieval quality, using metrics like context precision and context recall, and generation quality, using metrics like faithfulness and answer relevance. Faithfulness means the answer only contains claims supported by the retrieved context.
+
+October covers Agents, Integration and Orchestration. This includes function and tool calling, ReAct agents, agent memory, task decomposition, LangGraph, multi-agent systems, external API integrations, and human-in-the-loop workflows.
+
+Function calling, also known as tool calling, allows a model to request that a specific function be run with specific arguments, rather than answering directly. The model itself never executes the function; the calling code does, and then sends the result back to the model.
+
+A ReAct agent follows a repeating loop of Thought, Action, and Observation. It decides what it needs to know, takes an action such as calling a tool, observes the result, and repeats until it has enough information to give a final answer.
+
+November covers Ops, Evaluation and Safety. This includes FastAPI and Docker, cloud deployment, CI/CD, LLM evaluations, LLM-as-a-judge, observability, latency and cost optimization, guardrails, prompt injection and security, and responsible AI.
+
+December covers ML Foundations, including supervised versus unsupervised learning, training and validation and testing, regression and classification, neural networks, transformers and attention, overfitting and regularization, model evaluation metrics, and fine-tuning fundamentals. The final build is a capstone project combining RAG, agents, evaluation, deployment, safety, and ML foundations.
+
+For this course, Groq is being used as the LLM API provider because it offers a free tier with no credit card required, unlike Anthropic and OpenAI, which both require billing information. Groq uses an OpenAI-compatible client library and currently runs models including openai/gpt-oss-120b.
+
+API keys should always be stored in a dot-env file, never typed directly into a terminal, code file, or chat, because anything typed in those places can be exposed. A dot-gitignore file should always exclude the dot-env file and the virtual environment folder from being pushed to GitHub.
+
+A virtual environment isolates a project's Python packages from every other project on the same machine, preventing version conflicts between different projects.
+
+
