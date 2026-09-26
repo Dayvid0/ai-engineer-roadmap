@@ -9,6 +9,7 @@ client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
 )
 
+
 class ChatSession:
     def __init__(self):
         self.history = []
@@ -24,6 +25,7 @@ class ChatSession:
         self.history.append({"role": "assistant", "content": reply})
         return reply
 
+
 session = ChatSession()
 print("Chat started. Type 'quit' to exit.\n")
 
@@ -33,3 +35,4 @@ while True:
         break
     reply = session.send(user_input)
     print(f"AI: {reply}\n")
+    print(f"[Conversation now has {len(session.history)} messages]")
