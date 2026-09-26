@@ -1,0 +1,9 @@
+AI engineering is the practice of building applications on top of large language models rather than training models from scratch. It differs from traditional machine learning engineering, which focuses on building and training models directly.
+
+The core skills of an AI engineer include prompt engineering, retrieval-augmented generation, and agent orchestration. Prompt engineering involves crafting inputs that reliably produce useful outputs from a model. RAG allows models to answer questions using external data they were never trained on. Agent orchestration involves chaining multiple tool calls and reasoning steps together to complete complex tasks.
+
+Deployment is another critical skill. AI engineers must know how to package applications using tools like Docker, deploy them to cloud platforms, and set up continuous integration pipelines. Without proper deployment practices, even a brilliant prototype never reaches real users.
+
+Evaluation is often overlooked by beginners but is essential in production. Teams need to know whether their AI system's outputs are accurate, safe, and useful before shipping updates. This involves both automated metrics and human review.
+
+Safety and ethics round out the skill set. This includes protecting against prompt injection attacks, ensuring outputs don't leak private data, and being transparent about a system's limitations.
