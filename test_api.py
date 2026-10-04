@@ -1,7 +1,11 @@
 from fastapi.testclient import TestClient
+import os
 from rag_api_light import app
 
 client = TestClient(app)
+
+os.environ["GROQ_API_KEY"] = os.environ.get("GROQ_API_KEY", "").strip()
+os.environ["HF_TOKEN"] = os.environ.get("HF_TOKEN", "").strip()
 
 def test_home_route():
     response = client.get("/")
