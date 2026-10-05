@@ -40,8 +40,9 @@ def cosine_similarity(a, b):
     mag_b = sum(y * y for y in b) ** 0.5
     return dot / (mag_a * mag_b)
 
-def search(query, top_n=2):
-    query_embedding = get_embedding(query)
+def search(query, top_n=4):
+    expanded_query = f"{query} roadmap schedule topics covered month"
+    query_embedding = get_embedding(expanded_query)
     scored = [(doc, cosine_similarity(query_embedding, emb)) for doc, emb in zip(documents, embeddings)]
     scored.sort(key=lambda x: x[1], reverse=True)
     return [doc for doc, score in scored[:top_n]]
