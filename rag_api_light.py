@@ -3,6 +3,9 @@ import requests
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from openai import OpenAI
+import time
+import json
+from datetime import datetime
 
 load_dotenv()
 
@@ -53,6 +56,8 @@ def home():
 
 @app.get("/ask")
 def ask(question: str):
+    start_time = time.time()
+
     retrieved = search(question)
     context_text = "\n".join(retrieved)
     prompt = f"""Answer using only the context below. If it doesn't contain the answer, say so.
@@ -67,4 +72,22 @@ Question: {question}
         max_tokens=250,
         messages=[{"role": "user", "content": prompt}]
     )
-    return {"question": question, "retrieved_chunks": retrieved, "answer": response.choices[0].message.content}
+
+    elapsed = time.time() - start_time
+    answer = response.choices[0].message.content
+    tokens_used = response.usage.total_tokens
+
+    log_entry = {
+        "timestamp": datetime.now().isoformat(),
+        "question": question,
+        "answer": answer,
+        "retrieved_chunks_count": len(retrieved),
+        "latency_seconds": round(elapsed, 2),
+        "tokens_used": tokens_used,
+    }
+    print(f"[LOG] {json.dumps(log_entry)}")
+
+    with open("request_log.jsonl", "a") as f:
+        f.write(json.dumps(log_entry) + "\n")
+
+    return {"question": question, "retrieved_chunks": retrieved, "answer": answer, "latency_seconds": round(elapsed, 2)}
